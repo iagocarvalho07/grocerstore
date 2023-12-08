@@ -20,7 +20,7 @@ class SingUpScreen extends StatelessWidget {
               const Expanded(
                 child: Center(
                   child: Text(
-                    "Cadatro",
+                    "Cadastro",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 35,
