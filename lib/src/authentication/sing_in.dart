@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grocerstore/src/authentication/sing_up_screen.dart';
+import 'package:grocerstore/src/base/base_screen.dart';
 import 'package:grocerstore/src/components/custom_text_field.dart';
 import 'package:grocerstore/src/config/custom_color.dart';
 
@@ -94,7 +95,11 @@ class SingScreen extends StatelessWidget {
                       height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c){
+                            return  BaseScreen();
+                          }));
+                        },
                         child: const Text(
                           "Entrar",
                           style: TextStyle(fontSize: 18),
