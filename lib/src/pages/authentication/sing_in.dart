@@ -1,10 +1,11 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grocerstore/src/authentication/sing_up_screen.dart';
-import 'package:grocerstore/src/base/base_screen.dart';
-import 'package:grocerstore/src/components/custom_text_field.dart';
 import 'package:grocerstore/src/config/custom_color.dart';
+import 'package:grocerstore/src/pages/authentication/sing_up_screen.dart';
+
+import '../base/base_screen.dart';
+import '../components/custom_text_field.dart';
 
 class SingScreen extends StatelessWidget {
   const SingScreen({super.key});

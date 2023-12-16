@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grocerstore/src/authentication/sing_in.dart';
+import 'package:flutter/widgets.dart';
+import 'package:grocerstore/src/pages/authentication/sing_in.dart';
 
 void main() {
   runApp(const MyApp());
