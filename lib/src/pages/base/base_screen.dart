@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grocerstore/src/pages/cart/cart_tab.dart';
+import 'package:grocerstore/src/pages/orders/orders_page.dart';
+import 'package:grocerstore/src/pages/profile/profile_screen.dart';
 import '../home/home_tab.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -25,12 +27,8 @@ class _BaseScreenState extends State<BaseScreen> {
         children: [
           HomeTab(),
           CartTab(),
-          Container(
-            color: Colors.blue,
-          ),
-          Container(
-            color: Colors.purple,
-          ),
+          OrdersTabScreen(),
+          ProfileTabScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
