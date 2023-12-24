@@ -8,7 +8,7 @@ class UtilsServices{
   }
 
 
-  String DateFormatTime(DateTime dateTime){
+  String formatDateTime(DateTime dateTime){
    initializeDateFormatting();
    DateFormat dateFormat = DateFormat.yMd('pt-BR').add_Hm();
    return dateFormat.format(dateTime);

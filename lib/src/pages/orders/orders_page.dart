@@ -19,7 +19,7 @@ class OrdersTabScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         separatorBuilder: (_, index) => const SizedBox(height: 50,),
         itemBuilder: (_, index){
-          return OrderTile(orders: orders[index]);
+          return OrderTile(order: orders[index]);
         },
         itemCount: orders.length,
       ),

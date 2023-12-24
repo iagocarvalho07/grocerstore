@@ -1,3 +1,4 @@
+import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grocerstore/src/config/custom_color.dart';
@@ -17,6 +18,7 @@ class _HomeTabState extends State<HomeTab> {
   List categories = ["Vegetais", "frutas", "Verduras", "legumes", "graõs "];
 
   String selectedCategories = "Vegetais";
+
 
   @override
   Widget build(BuildContext context) {
