@@ -10,9 +10,13 @@ import '../base/base_screen.dart';
 import '../components/custom_text_field.dart';
 
 class SingScreen extends StatelessWidget {
-  const SingScreen({super.key});
+   SingScreen({super.key});
+  final _formKey = GlobalKey<FormState>();
+  final emailControler = TextEditingController();
+  final passwordlControler = TextEditingController();
 
-  @override
+
+   @override
   Widget build(BuildContext context) {
     final size = MediaQuery
         .of(context)
@@ -81,90 +85,110 @@ class SingScreen extends StatelessWidget {
                     top: Radius.circular(45),
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    //email
-                    CustomTextField(
-                      icon: Icons.email,
-                      label: 'Email',
-                      isobscureIconSenha: false,
-                    ),
-                    //senha
-                    CustomTextField(
-                      icon: Icons.password,
-                      label: 'Password',
-                      isobscuretext: true,
-                    ),
-                    // botão entrar
-                    SizedBox(
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(),
-                        onPressed: () {
-                         // Navigator.of(context).pushReplacement(
-                              // MaterialPageRoute(builder: (c) {
-                              //   return BaseScreen();
-                              // }));
-                          Get.toNamed(PageRoutesName.BaseScreen);
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //email
+                      CustomTextField(
+                        controller: emailControler,
+                        icon: Icons.email,
+                        label: 'Email',
+                        isobscureIconSenha: false,
+                        validator: (email){
+                          if(email == null || email.isEmpty) return "Digite Seu Email";
+                          if(email.isEmail) return "Digite Um Email valido";
+                          return null;
                         },
-                        child: const Text(
-                          "Entrar",
-                          style: TextStyle(fontSize: 18),
-                        ),
                       ),
-                    ),
-                    //esqueceu senha
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Esqueceu a Senha?",
-                          style:
-                          TextStyle(color: CustomColor.customContrastColor),
-                        ),
+                      //senha
+                      CustomTextField(
+                        controller: passwordlControler,
+                        icon: Icons.password,
+                        label: 'Password',
+                        isobscuretext: true,
+                        validator: (password){
+                          if(password == null || password.isEmpty) return "Digite Seu Senha";
+                          if(password.length <= 7) return "A Senha deve Conter Pelomenos 7 caracteres";
+                          return null;
+                        },
                       ),
-                    ),
-                    // divisor
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              thickness: 1,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text("Ou"),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              thickness: 1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Botão novo usuario
-                    SizedBox(
-                      height: 50,
-                      child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            side:
-                            const BorderSide(width: 2, color: Colors.green),
-                          ),
+                      // botão entrar
+                      SizedBox(
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(),
                           onPressed: () {
-                            // Navigator.of(context).push(MaterialPageRoute(builder: (builder){
-                            //   return SingUpScreen();
-                            // }));
-                            Get.toNamed(PageRoutesName.SingUpScreen);
+                           // Navigator.of(context).pushReplacement(
+                                // MaterialPageRoute(builder: (c) {
+                                //   return BaseScreen();
+                                // }));
+                            if(_formKey.currentState!.validate()){
+                              String email = emailControler.text;
+                              String pasword = passwordlControler.text;
+
+                            }
+                            Get.toNamed(PageRoutesName.BaseScreen);
                           },
-                          child: const Text("Criar Conta")),
-                    )
-                  ],
+                          child: const Text(
+                            "Entrar",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      //esqueceu senha
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Esqueceu a Senha?",
+                            style:
+                            TextStyle(color: CustomColor.customContrastColor),
+                          ),
+                        ),
+                      ),
+                      // divisor
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                thickness: 1,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text("Ou"),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                thickness: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Botão novo usuario
+                      SizedBox(
+                        height: 50,
+                        child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              side:
+                              const BorderSide(width: 2, color: Colors.green),
+                            ),
+                            onPressed: () {
+                              // Navigator.of(context).push(MaterialPageRoute(builder: (builder){
+                              //   return SingUpScreen();
+                              // }));
+                              Get.toNamed(PageRoutesName.SingUpScreen);
+                            },
+                            child: const Text("Criar Conta")),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
