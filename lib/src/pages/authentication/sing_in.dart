@@ -1,26 +1,22 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocerstore/src/config/custom_color.dart';
-import 'package:grocerstore/src/pages/authentication/sing_up_screen.dart';
+import 'package:grocerstore/src/pages/authentication/auth_controler.dart';
 import 'package:grocerstore/src/pages_routes/app_page_routes.dart';
 
-import '../base/base_screen.dart';
 import '../components/custom_text_field.dart';
 
 class SingScreen extends StatelessWidget {
-   SingScreen({super.key});
+  SingScreen({super.key});
+
   final _formKey = GlobalKey<FormState>();
   final emailControler = TextEditingController();
   final passwordlControler = TextEditingController();
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: CustomColor.customSwatColor,
@@ -32,53 +28,52 @@ class SingScreen extends StatelessWidget {
             children: [
               Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // nome do app
-                      Text.rich(
-                        TextSpan(
-                            style: const TextStyle(fontSize: 40), children: [
-                          const TextSpan(
-                            text: 'Green',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Grocer',
-                            style: TextStyle(
-                              color: CustomColor.customContrastColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ]),
-                      ),
-                      // Categorias
-                      SizedBox(
-                        height: 30,
-                        child: DefaultTextStyle(
-                          style: const TextStyle(fontSize: 25),
-                          child: AnimatedTextKit(
-                            pause: Duration.zero,
-                            repeatForever: true,
-                            animatedTexts: [
-                              FadeAnimatedText("Frutas"),
-                              FadeAnimatedText("Verduras"),
-                              FadeAnimatedText("Legumes"),
-                              FadeAnimatedText("Carnes"),
-                              FadeAnimatedText("Cereais"),
-                            ],
-                          ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // nome do app
+                  Text.rich(
+                    TextSpan(style: const TextStyle(fontSize: 40), children: [
+                      const TextSpan(
+                        text: 'Green',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  )),
+                      TextSpan(
+                        text: 'Grocer',
+                        style: TextStyle(
+                          color: CustomColor.customContrastColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ]),
+                  ),
+                  // Categorias
+                  SizedBox(
+                    height: 30,
+                    child: DefaultTextStyle(
+                      style: const TextStyle(fontSize: 25),
+                      child: AnimatedTextKit(
+                        pause: Duration.zero,
+                        repeatForever: true,
+                        animatedTexts: [
+                          FadeAnimatedText("Frutas"),
+                          FadeAnimatedText("Verduras"),
+                          FadeAnimatedText("Legumes"),
+                          FadeAnimatedText("Carnes"),
+                          FadeAnimatedText("Cereais"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )),
 
               //formulario
               Container(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(
@@ -96,9 +91,11 @@ class SingScreen extends StatelessWidget {
                         icon: Icons.email,
                         label: 'Email',
                         isobscureIconSenha: false,
-                        validator: (email){
-                          if(email == null || email.isEmpty) return "Digite Seu Email";
-                          if(email.isEmail) return "Digite Um Email valido";
+                        validator: (email) {
+                          if (email == null || email.isEmpty) {
+                            return "Digite Seu Email";
+                          }
+                          if (!email.isEmail) return "Digite Um Email valido";
                           return null;
                         },
                       ),
@@ -108,33 +105,47 @@ class SingScreen extends StatelessWidget {
                         icon: Icons.password,
                         label: 'Password',
                         isobscuretext: true,
-                        validator: (password){
-                          if(password == null || password.isEmpty) return "Digite Seu Senha";
-                          if(password.length <= 7) return "A Senha deve Conter Pelomenos 7 caracteres";
+                        validator: (password) {
+                          if (password == null || password.isEmpty) {
+                            return "Digite Seu Senha";
+                          }
+                          if (password.length <= 7) {
+                            return "A Senha deve Conter Pelomenos 7 caracteres";
+                          }
                           return null;
                         },
                       ),
                       // botão entrar
                       SizedBox(
                         height: 50,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(),
-                          onPressed: () {
-                           // Navigator.of(context).pushReplacement(
+                        child: GetX<authControlhe>(
+                          initState: (_) {},
+                          builder: (authControlhe) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(),
+                              onPressed: authControlhe.isloading.value ? null : () {
+
+                                // Navigator.of(context).pushReplacement(
                                 // MaterialPageRoute(builder: (c) {
                                 //   return BaseScreen();
                                 // }));
-                            if(_formKey.currentState!.validate()){
-                              String email = emailControler.text;
-                              String pasword = passwordlControler.text;
-
-                            }
-                            Get.toNamed(PageRoutesName.BaseScreen);
+                                FocusScope.of(context).unfocus();
+                                if (_formKey.currentState!.validate()) {
+                                  String email = emailControler.text;
+                                  String password = passwordlControler.text;
+                                  authControlhe.singIn(
+                                      email: email, password: password);
+                                }
+                                //Get.toNamed(PageRoutesName.BaseScreen);
+                              },
+                              child: authControlhe.isloading.value
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      "Entrar",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                            );
                           },
-                          child: const Text(
-                            "Entrar",
-                            style: TextStyle(fontSize: 18),
-                          ),
                         ),
                       ),
                       //esqueceu senha
@@ -144,8 +155,8 @@ class SingScreen extends StatelessWidget {
                           onPressed: () {},
                           child: Text(
                             "Esqueceu a Senha?",
-                            style:
-                            TextStyle(color: CustomColor.customContrastColor),
+                            style: TextStyle(
+                                color: CustomColor.customContrastColor),
                           ),
                         ),
                       ),
@@ -176,8 +187,8 @@ class SingScreen extends StatelessWidget {
                         height: 50,
                         child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                              side:
-                              const BorderSide(width: 2, color: Colors.green),
+                              side: const BorderSide(
+                                  width: 2, color: Colors.green),
                             ),
                             onPressed: () {
                               // Navigator.of(context).push(MaterialPageRoute(builder: (builder){

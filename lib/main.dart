@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:grocerstore/src/pages/authentication/auth_controler.dart';
 import 'package:grocerstore/src/pages/authentication/sing_in.dart';
 import 'package:grocerstore/src/pages/splash_page/splashe_page.dart';
 import 'package:grocerstore/src/pages_routes/app_page_routes.dart';
 
 void main() {
+  Get.put(authControlhe());
   runApp(const MyApp());
 }
 

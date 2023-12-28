@@ -6,7 +6,7 @@ class CustomTextField extends StatefulWidget {
   final String label;
   bool isobscuretext;
   bool isobscureIconSenha;
-  final String initialValue;
+  final String? initialValue;
   final bool readOnly;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
@@ -19,7 +19,7 @@ class CustomTextField extends StatefulWidget {
     this.isobscuretext = false,
     this.isobscureIconSenha = true,
     this.inputFormatters,
-    this.initialValue = "",
+    this.initialValue,
     this.readOnly = false,
     this.validator,
     this.controller,
