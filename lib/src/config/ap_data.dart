@@ -79,7 +79,7 @@ UserModel users = UserModel(
     email: "Iagocarlvaoh@Gmail.com",
     cpf: "999.999.999.99",
     celular: "999.999.999.99",
-    senha: "senha");
+    senha: "senha", id: '', token: '');
 
 
 List<OrderModel> orders = [

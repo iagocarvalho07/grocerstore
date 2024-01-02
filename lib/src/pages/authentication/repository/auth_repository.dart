@@ -1,4 +1,5 @@
 import 'package:grocerstore/src/config/constants/end_points.dart';
+import 'package:grocerstore/src/models/user_model.dart';
 import 'package:grocerstore/src/services/http_manager.dart';
 
 class AuthRepository {
@@ -18,6 +19,8 @@ class AuthRepository {
     );
     if (result['result'] != null) {
       print("o login funcionol");
+      final user = UserModel.fromMap(result['result']);
+      print(user.token);
     } else {
       print("ñao deu certo o login");
     }
