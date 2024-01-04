@@ -1,11 +1,13 @@
 import 'package:grocerstore/src/config/constants/end_points.dart';
 import 'package:grocerstore/src/models/user_model.dart';
+import 'package:grocerstore/src/pages/authentication/repository/auth_errors.dart';
+import 'package:grocerstore/src/pages/authentication/result/auth_result.dart';
 import 'package:grocerstore/src/services/http_manager.dart';
 
 class AuthRepository {
   final HttpManager _httpManager = HttpManager();
 
-  Future signIn({
+  Future<AuthResult> signIn({
     required String email,
     required String password,
   }) async {
@@ -18,11 +20,10 @@ class AuthRepository {
       },
     );
     if (result['result'] != null) {
-      print("o login funcionol");
-      final user = UserModel.fromMap(result['result']);
-      print(user.token);
+      final user = UserModel.fromJson(result['result']);
+      return AuthResult.success(user);
     } else {
-      print("ñao deu certo o login");
+      return AuthResult.error(AuthErrorString(result['error']));
     }
   }
 }
