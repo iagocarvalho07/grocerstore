@@ -9,6 +9,7 @@ import 'package:grocerstore/src/pages/splash_page/splashe_page.dart';
 import 'package:grocerstore/src/pages_routes/app_page_routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   Get.put(authControlhe());
   runApp(const MyApp());
 }
