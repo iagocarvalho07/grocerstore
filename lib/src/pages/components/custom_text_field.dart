@@ -8,6 +8,7 @@ class CustomTextField extends StatefulWidget {
   bool isobscureIconSenha;
   final String? initialValue;
   final bool readOnly;
+  final TextInputType? TextInputTypes;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
@@ -22,7 +23,7 @@ class CustomTextField extends StatefulWidget {
     this.initialValue,
     this.readOnly = false,
     this.validator,
-    this.controller,
+    this.controller,  this.TextInputTypes,
   });
 
   @override
@@ -39,6 +40,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         validator: widget.validator,
         readOnly: widget.readOnly,
         initialValue: widget.initialValue,
+        keyboardType: widget.TextInputTypes,
         inputFormatters: widget.inputFormatters,
         obscureText: widget.isobscuretext,
         decoration: InputDecoration(
