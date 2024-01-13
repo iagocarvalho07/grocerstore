@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grocerstore/src/config/custom_color.dart';
+import 'package:grocerstore/src/services/validators.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../components/custom_text_field.dart';
@@ -18,6 +19,7 @@ class SingUpScreen extends StatelessWidget {
       filter: {'#': RegExp(r'[0-9]')}
   );
 
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,57 +53,63 @@ class SingUpScreen extends StatelessWidget {
                       top: Radius.circular(45),
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      CustomTextField(
-                        icon: Icons.email,
-                        label: "Email",
-                        isobscureIconSenha: false,
-                      ),
-                      CustomTextField(
-                        icon: Icons.password,
-                        label: "Password",
-                        isobscuretext: true,
-                      ),
-                      CustomTextField(
-                        icon: Icons.person,
-                        label: "Nome",
-                        isobscureIconSenha: false,
-                      ),
-                      CustomTextField(
-                        icon: Icons.phone,
-                        label: "Celular",
-                        inputFormatters: [phoneFormater],
-                        isobscureIconSenha: false,
-                      ),
-                      CustomTextField(
-                        icon: Icons.file_copy,
-                        label: "CPF",
-                        inputFormatters: [cpfFormater],
-                        isobscureIconSenha: false,
-                      ),
-                      CustomTextField(
-                        icon: Icons.email,
-                        label: "Email",
-                        isobscureIconSenha: false,
-                      ),
-                      SizedBox(
-                        height: 50,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18))),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text(
-                            "Criar usuario",
-                            style: TextStyle(fontSize: 18),
-                          ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        CustomTextField(
+                          icon: Icons.email,
+                          label: "Email",
+                          isobscureIconSenha: false,
+                          TextInputTypes: TextInputType.emailAddress,
+                          validator: emailValidator,
                         ),
-                      )
-                    ],
+                        CustomTextField(
+                          icon: Icons.password,
+                          label: "Password",
+                          isobscuretext: true,
+                          validator: passwordValidator,
+                        ),
+                        CustomTextField(
+                          icon: Icons.person,
+                          label: "Nome",
+                          isobscureIconSenha: false,
+                          validator: nameValidator,
+                        ),
+                        CustomTextField(
+                          icon: Icons.phone,
+                          label: "Celular",
+                          inputFormatters: [phoneFormater],
+                          isobscureIconSenha: false,
+                          TextInputTypes: TextInputType.phone,
+                          validator: phoneValidator,
+                        ),
+                        CustomTextField(
+                          icon: Icons.file_copy,
+                          label: "CPF",
+                          inputFormatters: [cpfFormater],
+                          isobscureIconSenha: false,
+                          TextInputTypes: TextInputType.number,
+                          validator: cpfValidator,
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18))),
+                            onPressed: () {
+                              _formKey.currentState!.validate();
+                            },
+                            child: const Text(
+                              "Criar usuario",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

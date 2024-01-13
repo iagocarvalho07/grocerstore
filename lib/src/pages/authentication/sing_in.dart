@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:grocerstore/src/config/custom_color.dart';
 import 'package:grocerstore/src/pages/authentication/auth_controler.dart';
 import 'package:grocerstore/src/pages_routes/app_page_routes.dart';
+import 'package:grocerstore/src/services/validators.dart';
 
 import '../components/custom_text_field.dart';
 
@@ -91,13 +92,7 @@ class SingScreen extends StatelessWidget {
                         icon: Icons.email,
                         label: 'Email',
                         isobscureIconSenha: false,
-                        validator: (email) {
-                          if (email == null || email.isEmpty) {
-                            return "Digite Seu Email";
-                          }
-                          if (!email.isEmail) return "Digite Um Email valido";
-                          return null;
-                        },
+                        validator: emailValidator,
                       ),
                       //senha
                       CustomTextField(
@@ -105,15 +100,7 @@ class SingScreen extends StatelessWidget {
                         icon: Icons.password,
                         label: 'Password',
                         isobscuretext: true,
-                        validator: (password) {
-                          if (password == null || password.isEmpty) {
-                            return "Digite Seu Senha";
-                          }
-                          if (password.length <= 7) {
-                            return "A Senha deve Conter Pelomenos 7 caracteres";
-                          }
-                          return null;
-                        },
+                        validator: passwordValidator,
                       ),
                       // botão entrar
                       SizedBox(
