@@ -14,9 +14,29 @@ class authControlhe extends GetxController {
   UserModel user = UserModel();
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
     validateToken();
+  }
+
+  Future<void> signUp() async {
+    isloading.value = true;
+    AuthResult result = await authRepository.signUp(user);
+    isloading.value = false;
+    result.when(
+      success: (user) {
+        this.user = user;
+        SaveTokenAndProceedTobase();
+      },
+      error: (error) {},
+    );
+  }
+
+  void SaveTokenAndProceedTobase() {
+    // salvar o token
+    utilsSerives.saveLocalDate(key: Storagekeys.token, data: user.token!);
+    // ir para tela Base
+    Get.offAllNamed(PageRoutesName.BaseScreen);
   }
 
   Future<void> validateToken() async {
@@ -29,6 +49,7 @@ class authControlhe extends GetxController {
     AuthResult result = await authRepository.validateToken(token);
     result.when(
       success: (user) {
+        this.user = user;
         SaveTokenAndProceedTobase();
       },
       error: (error) {
@@ -44,13 +65,6 @@ class authControlhe extends GetxController {
     await utilsSerives.removeLocalData(key: Storagekeys.token);
     // ir para o login
     Get.offAllNamed(PageRoutesName.SingInScreen);
-  }
-
-  void SaveTokenAndProceedTobase() {
-    // salvar o token
-    utilsSerives.saveLocalDate(key: Storagekeys.token, data: user.token!);
-    // ir para tela Base
-    Get.offAllNamed(PageRoutesName.BaseScreen);
   }
 
   Future<void> singIn({
