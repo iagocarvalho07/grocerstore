@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:grocerstore/src/config/custom_color.dart';
+import 'package:grocerstore/src/pages/authentication/auth_controler.dart';
 import 'package:grocerstore/src/pages/components/custom_text_field.dart';
 
 import '../../config/ap_data.dart';
@@ -8,11 +10,13 @@ import '../../config/ap_data.dart';
 class ProfileTabScreen extends StatefulWidget {
   const ProfileTabScreen({super.key});
 
+
   @override
   State<ProfileTabScreen> createState() => _ProfileTabScreenState();
 }
 
 class _ProfileTabScreenState extends State<ProfileTabScreen> {
+  final authControlher = Get.find<authControlhe>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +24,9 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
         backgroundColor: CustomColor.customSwatColor,
         title: Text("Perfil do Usuario"),
         actions: [
-          Icon(Icons.logout),
+          IconButton( onPressed: () {
+            authControlher.SingOut();
+      }, icon: const Icon(Icons.logout),),
         ],
       ),
       body: ListView(
