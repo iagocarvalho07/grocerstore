@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocerstore/src/config/custom_color.dart';
 import 'package:grocerstore/src/pages/authentication/auth_controler.dart';
+import 'package:grocerstore/src/pages/authentication/forgot_password.dart';
 import 'package:grocerstore/src/pages_routes/app_page_routes.dart';
 import 'package:grocerstore/src/services/validators.dart';
 
@@ -110,21 +111,23 @@ class SingScreen extends StatelessWidget {
                           builder: (authControlhe) {
                             return ElevatedButton(
                               style: ElevatedButton.styleFrom(),
-                              onPressed: authControlhe.isloading.value ? null : () {
-
-                                // Navigator.of(context).pushReplacement(
-                                // MaterialPageRoute(builder: (c) {
-                                //   return BaseScreen();
-                                // }));
-                                FocusScope.of(context).unfocus();
-                                if (_formKey.currentState!.validate()) {
-                                  String email = emailControler.text;
-                                  String password = passwordlControler.text;
-                                  authControlhe.singIn(
-                                      email: email, password: password);
-                                }
-                                //Get.toNamed(PageRoutesName.BaseScreen);
-                              },
+                              onPressed: authControlhe.isloading.value
+                                  ? null
+                                  : () {
+                                      // Navigator.of(context).pushReplacement(
+                                      // MaterialPageRoute(builder: (c) {
+                                      //   return BaseScreen();
+                                      // }));
+                                      FocusScope.of(context).unfocus();
+                                      if (_formKey.currentState!.validate()) {
+                                        String email = emailControler.text;
+                                        String password =
+                                            passwordlControler.text;
+                                        authControlhe.singIn(
+                                            email: email, password: password);
+                                      }
+                                      //Get.toNamed(PageRoutesName.BaseScreen);
+                                    },
                               child: authControlhe.isloading.value
                                   ? const CircularProgressIndicator()
                                   : const Text(
@@ -139,7 +142,14 @@ class SingScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return ForgotPasswordDialog(
+                                      email: emailControler.text);
+                                });
+                          },
                           child: Text(
                             "Esqueceu a Senha?",
                             style: TextStyle(
